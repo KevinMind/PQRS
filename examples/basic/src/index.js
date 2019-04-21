@@ -1,4 +1,4 @@
-import createConfig from 'pqrs/build';
+import createConfig from 'pqrs';
 import express from 'express';
 
 const app = express();

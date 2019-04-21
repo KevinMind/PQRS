@@ -728,10 +728,10 @@ posix-character-classes@^0.1.0:
   resolved "https://registry.yarnpkg.com/posix-character-classes/-/posix-character-classes-0.1.1.tgz#01eac0fe3b5af71a2a6c02feabb8c1fef7e00eab"
   integrity sha1-AerA/jta9xoqbAL+q7jB/vfgDqs=
 
-pqrs@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/pqrs/-/pqrs-0.1.4.tgz#2708a0223a72cd0821caa3384da3e663c03ace41"
-  integrity sha512-q2gzXGKSOjPcroGjcRjzGu/3vRKDa/QE1ZeUTqyYIy8m0hqx/PImisEpvWBnBh/z8NAvjnMNqqpEodtinpU7Gg==
+pqrs@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/pqrs/-/pqrs-0.1.5.tgz#cc4cca2167e757a62941a79032e294c0995f8e5b"
+  integrity sha512-wl9n/pKZPeAnzhZ8WWaV0DoN9tHWcMan6opjf+z3c/a4r3r+7S3lMuwiQf2keSSlFvENzPqfK4LUlKACIWpARA==
 
 proxy-addr@~2.0.4:
   version "2.0.5"
