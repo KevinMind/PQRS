@@ -33,7 +33,6 @@ const main = (config) => {
     routes,
     key,
   };
-
 };
 
 export default main;

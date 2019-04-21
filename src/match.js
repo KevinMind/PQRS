@@ -2,37 +2,32 @@ import Err, { errMessages } from './errors';
 
 export const MASTER_KEY = 'key';
 
-// TODO: start here
-export const isRegexMatcher = match => () => {
-  console.log(match);
-};
+export const getRegexer = (match, query) => new RegExp(match.replace(MASTER_KEY, query));
 
-export const getWildCardMatch = match => getRegexer(match, '(.*?)');
+export const getWildCardMatch = match => RegExp(`${match.replace(MASTER_KEY, '(.*?)')}(?=\\/|$)`);
 
-export const getRegexer = (match, query) => {
-  return new RegExp(match.replace(MASTER_KEY, query));
-};
-
-export const getMatcher = matchFunc => {
+export const getMatcher = (matchFunc) => {
   if (!matchFunc || typeof matchFunc !== 'function') {
-    throw Err(errMessages.stringify.noMatch);
+    throw Err(errMessages.match.noMatch);
   }
   return matchFunc(MASTER_KEY);
 };
 
 const urlStringToArr = url => url.split('/');
 
-const matchUrlStringToPattern = (match) => (pattern, string) => {
+const matchUrlStringToPattern = match => (pattern, string) => {
   const patt = urlStringToArr(pattern);
   const strr = urlStringToArr(string);
   const wildcard = getWildCardMatch(match);
 
   // not match because not same length
+  // TODO: decide if urls with extra or missing trailing / should pass or fail a match test
+  // it seems that if pattern defines without, the string should also so it should fail.
   if (patt.length !== strr.length) {
     return false;
   }
 
-  for (let i = 0; i < string.length; i ++) {
+  for (let i = 0; i < string.length; i += 1) {
     const branch = strr[i];
     const patBranch = patt[i];
 

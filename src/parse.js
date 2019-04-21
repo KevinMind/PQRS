@@ -19,9 +19,8 @@ const parseStringToObject = match => (pattern, string, result = {}) => {
     // query first match from pattern catch all
     const { key, value, queryMatch } = querier(pattern, string, test[1]);
 
-    if (obj.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
       throw Err(errMessages.parse.duplicateId(key));
-
     }
 
     // set item to result object

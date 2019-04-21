@@ -18,7 +18,7 @@ describe('query', () => {
   });
   it('should return null', () => {
     const pattern = '/documents/:id/else';
-    const string =  '/somethign/do/else';
+    const string = '/somethign/do/else';
     const queryId = 'id';
 
     const querier = queryStringFromPatternById(match);
@@ -31,7 +31,7 @@ describe('query', () => {
 
   it('should return null', () => {
     const pattern = '/documents/:id/else/:another';
-    const string =  '/documents/234/else/456';
+    const string = '/documents/234/else/456';
     const queryId = 'id';
     const querier = queryStringFromPatternById(match);
 
@@ -40,6 +40,4 @@ describe('query', () => {
     expect(id.value).toEqual('234');
     expect(id.key).toEqual('id');
   });
-
-
 });

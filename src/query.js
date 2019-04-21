@@ -1,27 +1,30 @@
 import matchUrlStringToPattern, { getRegexer } from './match';
 
-const queryPatternAndString = (match) => (pattern, string, key = null) => {
+const getItemConfig = (key, value = null, queryMatch = null) => ({
+  key,
+  value,
+  queryMatch,
+});
+
+const queryPatternAndString = match => (pattern, string, key = null) => {
+  // TODO: decide if we should handle loose types, right now, everything is a string..
+  // we could theoretically handle numbers/strings/maybe dates/ idk...
   const regex = getRegexer(match, key);
   const test = regex.exec(pattern);
 
-  const item = { key, value: null, queryMatch: null };
-
   // no query because urls are not a match.
   if (!matchUrlStringToPattern(match)(pattern, string)) {
-    return item;
+    return getItemConfig(key);
   }
 
   if (test && Array.isArray(test)) {
     const [patternMatch] = test;
     const start = test.index;
 
-    // set item key to matching id
-    item.queryMatch = patternMatch;
-
     // no match because start of pattern match does not exist in string
     // ex: pattern = '/documents/:id string = /documents
     if (string.length < start) {
-      return item
+      return getItemConfig(key, null, patternMatch);
     }
 
     // the char 1 index after the end of our matchedString
@@ -29,8 +32,7 @@ const queryPatternAndString = (match) => (pattern, string, key = null) => {
 
     // our value match goes to the end of the string
     if (pattern.length === endStringIdx) {
-      item.value = string.slice(start);
-      return item;
+      return getItemConfig(key, string.slice(start), patternMatch);
     }
 
     // character in pattern that matches end of valueMatch
@@ -39,17 +41,14 @@ const queryPatternAndString = (match) => (pattern, string, key = null) => {
     // find endOfStringChar after start in string.
     const endStringMatch = string.slice(start).match(endStringChar);
 
-    // console.log({ pattern, string, patternMatch, key, endStringIdx, endStringChar, endStringMatch });
     // no match because we could not find the ending char in the url
     // ex: pattern /documents/:banana/something string: /documents/something/else/entirely
     if (endStringMatch === null || !Array.isArray(endStringMatch)) {
-      return item;
-    } else {
-      item.value = string.slice(start, endStringMatch.index + start);
-      return item;
+      return getItemConfig(key, null, patternMatch);
     }
+    return getItemConfig(key, string.slice(start, endStringMatch.index + start), patternMatch);
   }
-  return item;
+  return getItemConfig(key);
 };
 
 export default queryPatternAndString;

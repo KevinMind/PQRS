@@ -1,9 +1,7 @@
 import Err, { errMessages } from './errors';
-import { getMatcher, MASTER_KEY } from './match';
+import { getRegexer } from './match';
 
-const stringify = (matchFunc) => (pattern, placeholders) => {
-  const match = getMatcher(matchFunc);
-
+const stringifyPatternFromPlaceholders = match => (pattern, placeholders) => {
   if (!pattern || typeof pattern !== 'string') {
     throw Err(errMessages.stringify.noPattern);
   }
@@ -12,9 +10,9 @@ const stringify = (matchFunc) => (pattern, placeholders) => {
   }
 
   return Object.keys(placeholders).reduce(
-    (path, key) => path.replace(match.replace(MASTER_KEY, key), placeholders[key]),
-    pattern
+    (path, key) => path.replace(getRegexer(match, key), placeholders[key]),
+    pattern,
   );
 };
 
-export default stringify;
+export default stringifyPatternFromPlaceholders;

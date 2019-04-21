@@ -7,7 +7,7 @@ const getMatch = key => `{{${key}}}`;
 const match = getMatcher(getMatch);
 
 describe('parse', () => {
-  it ('should fail with duplicate param key', () => {
+  it('should fail with duplicate param key', () => {
     const pattern = '/documents/{{id}}/{{banana}}/{{banana}}';
     const string = '/documents/234/my-document/banana';
 
@@ -38,9 +38,8 @@ describe('parse', () => {
 
   it('should fail as pattern doesn"t match string', () => {
     const pattern = '/documents/{{id}}/else/{{banana}}';
-    const string =  '/somethign/do/else/234';
+    const string = '/somethign/do/else/234';
     const parsed = getParser(match)(pattern, string);
     expect(parsed).toEqual(null);
-  })
-
+  });
 });
