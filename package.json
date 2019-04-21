@@ -8,7 +8,7 @@
     "lint": "eslint src",
     "pre-commit": "yarn lint && yarn test --coverage && yarn build",
     "commit": "yarn pre-commit && git add . &&  git-cz",
-    "release": "yarn build && standard-version && npm publish"
+    "release": "yarn build && standard-version && git push --follow-tags origin master && npm publish"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
@@ -34,9 +34,5 @@
   },
   "files": [
     "build"
-  ],
-  "dependencies": {
-    "conventional-changelog-cli": "^2.0.12",
-    "global": "^4.3.2"
-  }
+  ]
 }
