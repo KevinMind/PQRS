@@ -9,7 +9,7 @@
     "pre-commit": "yarn lint && yarn test --coverage && yarn build",
     "commit": "yarn pre-commit && git add . &&  git-cz",
     "release-version": "yarn build && standard-version",
-    "release": "git push --follow-tags origin master && npm publish"
+    "release": "git push --follow-tags origin master"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
