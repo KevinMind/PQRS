@@ -1,6 +1,6 @@
 {
   "name": "pqrs",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "scripts": {
     "build": "rollup -c",
     "start": "yarn build -w",
