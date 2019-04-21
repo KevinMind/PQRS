@@ -1,34 +1,35 @@
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
+import typescript from 'rollup-plugin-typescript';
+
 import pkg from './package.json';
 
+import config from './tools/config';
+
+const formatFile = format => `${config.PROJECT_BUILD}/${pkg.name}.${format}.js`;
+
+const formatIndex = path => `${path}/index.js`;
+
 export default [
-	// browser-friendly UMD build
 	{
-		input: 'src/main.js',
+		input: formatIndex(config.PROJECT_SRC),
 		output: {
-			name: 'howLongUntilLunch',
-			file: pkg.browser,
+			name: pkg.name,
+			file: formatIndex(config.PROJECT_BUILD),
 			format: 'umd'
 		},
 		plugins: [
 			resolve(), // so Rollup can find `ms`
-			commonjs() // so Rollup can convert `ms` to an ES module
+			typescript(), // so Rollup can read typescript
+			commonjs(), // so Rollup can convert `ms` to an ES module
 		]
 	},
-
-	// CommonJS (for Node) and ES module (for bundlers) build.
-	// (We could have three entries in the configuration array
-	// instead of two, but it's quicker to generate multiple
-	// builds from a single configuration where possible, using
-	// an array for the `output` option, where we can specify 
-	// `file` and `format` for each target)
 	{
-		input: 'src/main.js',
-		external: ['ms'],
+		input: formatIndex(config.PROJECT_SRC),
+		external: [],
 		output: [
-			{ file: pkg.main, format: 'cjs' },
-			{ file: pkg.module, format: 'es' }
+			{ file: formatFile('cjs'), format: 'cjs' },
+			{ file: formatFile('es'), format: 'es' }
 		]
 	}
 ];
