@@ -1,6 +1,5 @@
-import createConfig from 'pqrs';
+import createConfig from 'pqrs/build';
 import express from 'express';
-import axios from 'axios';
 
 const app = express();
 

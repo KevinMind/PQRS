@@ -11,9 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.18.0",
     "express": "^4.16.4",
-    "pqrs": "../../build"
+    "pqrs": "^0.1.4"
   },
   "devDependencies": {
     "rollup": "^1.10.1",
