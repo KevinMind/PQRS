@@ -34,7 +34,7 @@ const main = (config) => {
     ...config,
   };
 
-  if (!options.rootPath instanceof String || typeof options.rootPath !== 'string') {
+  if (typeof options.rootPath !== 'string') {
     throw Err(errMessages.config.invalidRootPath(options.rootPath));
   }
 
