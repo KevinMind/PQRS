@@ -8,7 +8,8 @@
     "lint": "eslint src",
     "pre-commit": "yarn lint && yarn test --coverage && yarn build",
     "commit": "yarn pre-commit && git add . &&  git-cz",
-    "release": "yarn build && standard-version && git push --follow-tags origin master && npm publish"
+    "version": "yarn build && standard-version",
+    "release": "git push --follow-tags origin master && npm publish"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
